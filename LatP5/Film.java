@@ -1,16 +1,15 @@
 public class Film {
     private String judul, genre, rate;
-    private int jumlahTiket, hargaTiket;
+    private int hargaTiket;
 
     public Film() {
 
     }
 
-    public Film(String judul, String genre, String rate, int jumlahTiket, int hargaTiket) {
+    public Film(String judul, String genre, String rate, int hargaTiket) {
         this.judul = judul;
         this.genre = genre;
         this.rate = rate;
-        this.jumlahTiket = jumlahTiket;
         this.hargaTiket = hargaTiket;
     }
 
@@ -38,31 +37,12 @@ public class Film {
         this.rate = rate;
     }
 
-    public int getJumlahTiket() {
-        return jumlahTiket;
-    }
-
-    public void tambahTiket(int n) {
-        if (jumlahTiket > 0) {
-            jumlahTiket += n;
-        }
-    }
-
-    public void kurangiTiket(int n) {
-        if (jumlahTiket > 0) {
-            jumlahTiket -= n;
-        }
+    public void setHargaTiket(int hargaTiket) {
+        this.hargaTiket = hargaTiket;
     }
 
     public int getHargaTiket() {
         return hargaTiket;
     }
 
-    public int totalRevenue(int jumlah) {
-        return jumlah * hargaTiket;
-    }
-
-    public void tampilSisaTiket() {
-        System.out.println("Sisa tiket " + judul + ": " + jumlahTiket);
-    }
 }

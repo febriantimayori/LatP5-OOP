@@ -4,41 +4,49 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        Film film1 = new Film("Quantumania Mancing", "Action Comedy", "Remaja", 30, 40000);
-        Film film2 = new Film("Maniaquantum", "Horor", "Dewasa", 20, 40000);
-        Film film3 = new Film("A Man Called Otto", "Drama", "Dewasa", 15, 35000);
+        Film film1 = new Film("Quantumania Mancing", "Action Comedy", "Remaja", 40000);
+        Film film2 = new Film("Maniaquantum", "Horor", "Dewasa", 40000);
+        Film film3 = new Film("A Man Called Otto", "Drama", "Dewasa", 35000);
 
-        Snack snack1 = new Snack("Popcorn", 15000);
-        Snack snack2 = new Snack("Minuman", 10000);
+        Snack snack1 = new Snack("Popcorn Asin", 15000);
+        Snack snack2 = new Snack("Popcorn Manis", 20000);
+        Snack snack3 = new Snack("Sprite", 10000);
+        Snack snack4 = new Snack("Coca Cola", 15000);
 
-        int totalPembayaranFilm = 0;
-        int totalPembayaranSnack = 0;
-        int totalPembayaranKeseluruhan = 0;
+        Kasir kasir = new Kasir();
+
+        Pembeli pembeli = null; // Inisialisasi objek pembeli
 
         while (true) {
             System.out.println("Menu:");
-            System.out.println("1. Lihat Sisa Tiket Film");
-            System.out.println("2. Beli Tiket Film");
-            System.out.println("3. Beli Snack");
-            System.out.println("4. Total Bayar");
-            System.out.println("5. Keluar");
-            System.out.print("Pilih menu (1/2/3/4/5): ");
+            System.out.println("1. Beli Tiket Film");
+            System.out.println("2. Beli Snack");
+            System.out.println("3. Total Bayar");
+            System.out.println("4. Keluar");
+            System.out.print("Pilih menu (1/2/3/4): ");
             int menu = input.nextInt();
 
             if (menu == 1) {
-                System.out.println("Sisa Tiket Film:");
-                film1.tampilSisaTiket();
-                film2.tampilSisaTiket();
-                film3.tampilSisaTiket();
-            } else if (menu == 2) {
+                input.nextLine();  // Membuang karakter newline
+
+                // Pengisian data diri
+                System.out.print("Masukkan nama: ");
+                String nama = input.nextLine();
+                System.out.print("Masukkan nomor HP: ");
+                String noHP = input.nextLine();
+                System.out.print("Masukkan alamat: ");
+                String alamat = input.nextLine();
+
+                // Membuat objek Pembeli
+                pembeli = new Pembeli(nama, noHP, alamat);
+
                 System.out.println("Daftar Film:");
-                System.out.println("1. " + film1.getJudul() + " - Harga Tiket: " + film1.getHargaTiket());
-                System.out.println("2. " + film2.getJudul() + " - Harga Tiket: " + film2.getHargaTiket());
-                System.out.println("3. " + film3.getJudul() + " - Harga Tiket: " + film3.getHargaTiket());
+                System.out.printf("1. %-40s Harga Tiket: %d\n", film1.getJudul(), film1.getHargaTiket());
+                System.out.printf("2. %-40s Harga Tiket: %d\n", film2.getJudul(), film2.getHargaTiket());
+                System.out.printf("3. %-40s Harga Tiket: %d\n", film3.getJudul(), film3.getHargaTiket());
                 System.out.print("Pilih film yang ingin dibeli: ");
                 int pilihanFilm = input.nextInt();
 
-                int jumlahTiket = 0;
                 Film filmTerpilih = null;
 
                 if (pilihanFilm == 1) {
@@ -52,55 +60,62 @@ public class Main {
                     continue;
                 }
 
-                filmTerpilih.tampilSisaTiket();
-
                 System.out.print("Jumlah tiket yang ingin dibeli: ");
-                jumlahTiket = input.nextInt();
+                int jumlahTiket = input.nextInt();
+                int totalPembayaranFilm = filmTerpilih.getHargaTiket() * jumlahTiket;
 
-                if (jumlahTiket <= filmTerpilih.getJumlahTiket()) {
-                    filmTerpilih.tambahTiket(jumlahTiket);
-                    totalPembayaranFilm += filmTerpilih.totalRevenue(jumlahTiket);
-                } else {
-                    System.out.println("Maaf, jumlah tiket yang diminta melebihi sisa tiket yang tersedia.");
-                }
-            } else if (menu == 3) {
+                kasir.tambahStruk(String.format("| Tiket Film: %-32s | %,5d |", filmTerpilih.getJudul(), totalPembayaranFilm));
+                kasir.tambahTotalPembayaranFilm(totalPembayaranFilm);
+
+                System.out.println("Pembelian tiket film berhasil.");
+            } else if (menu == 2) {
                 while (true) {
-                    System.out.println("Daftar snack:");
-                    System.out.println("1. " + snack1.getNamaSnack() + " - Harga: " + snack1.getHargaSnack());
-                    System.out.println("2. " + snack2.getNamaSnack() + " - Harga: " + snack2.getHargaSnack());
-                    System.out.print("Pilih snack yang ingin dibeli: ");
+                    System.out.println("Daftar Snack:");
+                    System.out.printf("1. %-40s Harga: %d\n", snack1.getNamaSnack(), snack1.getHargaSnack());
+                    System.out.printf("2. %-40s Harga: %d\n", snack2.getNamaSnack(), snack2.getHargaSnack());
+                    System.out.printf("3. %-40s Harga: %d\n", snack3.getNamaSnack(), snack3.getHargaSnack());
+                    System.out.printf("4. %-40s Harga: %d\n", snack4.getNamaSnack(), snack4.getHargaSnack());
+                    System.out.print("Pilih snack yang ingin dibeli (0 untuk selesai): ");
                     int pilihanSnack = input.nextInt();
 
-                    int jumlahSnack = 0;
+                    if (pilihanSnack == 0) {
+                        break;
+                    }
+
                     Snack snackTerpilih = null;
 
                     if (pilihanSnack == 1) {
                         snackTerpilih = snack1;
                     } else if (pilihanSnack == 2) {
                         snackTerpilih = snack2;
+                    } else if (pilihanSnack == 3) {
+                        snackTerpilih = snack3;
+                    } else if (pilihanSnack == 4) {
+                        snackTerpilih = snack4;
                     } else {
                         System.out.println("Pilihan snack tidak valid.");
-                        break;
+                        continue;
                     }
 
                     System.out.print("Jumlah snack yang ingin dibeli: ");
-                    jumlahSnack = input.nextInt();
-                    snackTerpilih.tambahSnack(jumlahSnack);
-                    totalPembayaranSnack += snackTerpilih.totalPembayaranSnack();
+                    int jumlahSnack = input.nextInt();
+                    int totalPembayaranSnack = snackTerpilih.getHargaSnack() * jumlahSnack;
 
-                    System.out.print("Apakah ingin membeli snack lain? (1 = Ya, 0 = Tidak): ");
-                    int beliLagi = input.nextInt();
-                    if (beliLagi == 0) {
-                        break;
-                    }
+                    kasir.tambahStruk(String.format("| Snack: %-37s | %,5d |", snackTerpilih.getNamaSnack(), totalPembayaranSnack));
+                    kasir.tambahTotalPembayaranSnack(totalPembayaranSnack);
+
+                    System.out.println("Pembelian snack berhasil.");
                 }
+            } else if (menu == 3) {
+                // int totalKeseluruhan = kasir.hitungTotalPembayaranKeseluruhan();
+                kasir.cetakStruk();
+                // System.out.println("Total Bayar Keseluruhan: Rp. " + totalKeseluruhan);
             } else if (menu == 4) {
-                totalPembayaranKeseluruhan = totalPembayaranFilm + totalPembayaranSnack;
-                System.out.println("Total bayar tiket film: " + totalPembayaranFilm);
-                System.out.println("Total bayar snack: " + totalPembayaranSnack);
-                System.out.println("Total bayar keseluruhan: " + totalPembayaranKeseluruhan);
-            } else if (menu == 5) {
-                System.out.println("Terima kasih. Keluar dari program.");
+                if (pembeli != null) {
+                    System.out.println("Terima kasih, " + pembeli.getNama() + ". Keluar dari program.");
+                } else {
+                    System.out.println("Terima kasih. Keluar dari program.");
+                }
                 break;
             } else {
                 System.out.println("Menu tidak valid.");
