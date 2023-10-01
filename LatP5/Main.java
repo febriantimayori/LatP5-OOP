@@ -107,9 +107,7 @@ public class Main {
                     System.out.println("Pembelian snack berhasil.");
                 }
             } else if (menu == 3) {
-                // int totalKeseluruhan = kasir.hitungTotalPembayaranKeseluruhan();
                 kasir.cetakStruk();
-                // System.out.println("Total Bayar Keseluruhan: Rp. " + totalKeseluruhan);
             } else if (menu == 4) {
                 if (pembeli != null) {
                     System.out.println("Terima kasih, " + pembeli.getNama() + ". Keluar dari program.");

@@ -18,7 +18,7 @@ public class Kasir {
         totalPembayaranSnack += total;
     }
 
-    public int hitungTotalPembayaranKeseluruhan() {
+    private int hitungTotalPembayaranKeseluruhan() {
         return totalPembayaranFilm + totalPembayaranSnack;
     }
 
